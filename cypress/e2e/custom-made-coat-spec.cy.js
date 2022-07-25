@@ -34,6 +34,23 @@ describe('Custom Made Configurator', () => {
     cy.contains('Next').click()
 
     // step 2 - Style
+    cy.get('[data-code="CoatSection"]').should('have.class', 'active-nav visited')
+
+    cy.get('[aria-label="Fit"]').click()
+    cy.contains('Bleecker').click()
+    cy.contains('Apply').click()
+
+    cy.get('[aria-label="Lining"]').click()
+    cy.contains('Light Grey (3220)').click()
+    cy.contains('Apply').click()
+
+    cy.get('[aria-label="Buttons"]').click()
+    cy.contains('Brown & Light Brown (BOHA3-F)').click()
+    cy.contains('Apply').click()
+
+    // add validations for each item's value before clicking 'Next'
+
+    cy.contains('Next').click()
 
     // step 3 - Size
 
