@@ -1,36 +1,31 @@
 /// <reference types="Cypress" />
 
+import { MainPage } from './page-objects/main-page.js'
+import { CustomMadePage } from './page-objects/custom-made-page.js'
+
 describe('Custom Made Configurator', () => {
+
+  const mainPage = new MainPage()
+  const customMadePage = new CustomMadePage()
+
   beforeEach(() => {
-    cy.viewport('macbook-16')
-    cy.visit('/')
-    cy.contains('I Agree').click()
-    cy.get('[class="btn-close cookies__close-btn js-decline-country-change"]').click()
+    mainPage.navigateToMainPage()
+    mainPage.acceptCookies()
   })
 
   it('As an anonymous user I can add Custom Made Coat to the shopping cart', () => {
     // navigate to CM page
-    cy
-      .get('[class="hero-display-subtitle-design cm-link"]')
-      .eq(1)
-      .scrollIntoView()
-      .should('be.visible')
-      .click()
-    cy.url().should('include', 'custom-made.html')
+    mainPage.navigateToCustomMadePage()
 
     // navigate to Coat CM Configurator page
-    cy.contains('Start designing').click()
-    cy.get('[data-promo-id="page-journal-custom_made-fastest_tailors-cm_coat"]').click()
-    cy.url().should('include', 'product=Coat')
-    cy
-      .get('[class="close border-solid body-small size-small shape-round icon-only background-light hydrated"]')
-      .click() // improve this locator
+    customMadePage.navigateToCoatConfiguratorPage()
 
     // step 1 - Fabric
     cy.get('[data-code="FabricSection"]').should('have.class', 'active-nav visited')
     cy.contains('Filter').click()
     cy.get('[data-node-name="Fall/Winter"]').check({ force: true })
     cy.get('[data-node-name="Wool Alpaca Polyamide"]').check({ force: true })
+    cy.wait(2000)
     cy.contains('Blue Herringbone Wool Alpaca Polyamide').click()
     cy.contains('Next').click()
 
