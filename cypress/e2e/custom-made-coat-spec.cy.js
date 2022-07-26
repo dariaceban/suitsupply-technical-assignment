@@ -2,11 +2,13 @@
 
 import { MainPage } from './page-objects/main-page.js'
 import { CustomMadePage } from './page-objects/custom-made-page.js'
+import { CoatConfiguratorPage } from './page-objects/coat-configurator-page.js'
 
 describe('Custom Made Configurator', () => {
 
   const mainPage = new MainPage()
   const customMadePage = new CustomMadePage()
+  const coatConfiguratorPage = new CoatConfiguratorPage()
 
   beforeEach(() => {
     mainPage.navigateToMainPage()
@@ -21,56 +23,23 @@ describe('Custom Made Configurator', () => {
     customMadePage.navigateToCoatConfiguratorPage()
 
     // step 1 - Fabric
-    cy.get('[data-code="FabricSection"]').should('have.class', 'active-nav visited')
-    cy.contains('Filter').click()
-    cy.get('[data-node-name="Fall/Winter"]').check({ force: true })
-    cy.get('[data-node-name="Wool Alpaca Polyamide"]').check({ force: true })
-    cy.wait(2000)
-    cy.contains('Blue Herringbone Wool Alpaca Polyamide').click()
-    cy.contains('Next').click()
+    coatConfiguratorPage.validateSection('FabricSection')
+    coatConfiguratorPage.selectFabricByFilter('Fall/Winter', 'Wool Alpaca Polyamide', 'Blue Herringbone Wool Alpaca Polyamide')
+    mainPage.clickButtonByName('Next')
 
     // step 2 - Style
-    cy.get('[data-code="CoatSection"]').should('have.class', 'active-nav visited')
-
-    cy.get('[aria-label="Fit"]').click()
-    cy.contains('Bleecker').click()
-    cy.contains('Apply').click()
-
-    cy.get('[aria-label="Lining"]').click()
-    cy.contains('Light Grey (3220)').click()
-    cy.contains('Apply').click()
-
-    cy.get('[aria-label="Buttons"]').click()
-    cy.contains('Brown & Light Brown (BOHA3-F)').click()
-
-    cy.contains('Apply').click()
-
-    cy.contains('Next').click()
+    coatConfiguratorPage.validateSection('CoatSection')
+    coatConfiguratorPage.selectStyle('Fit', 'Bleecker')
+    coatConfiguratorPage.selectStyle('Lining', 'Light Grey (3220)')
+    coatConfiguratorPage.selectStyle('Buttons', 'Brown & Light Brown (BOHA3-F)')
+    mainPage.clickButtonByName('Next')
 
     // step 3 - Size
-    cy.get('[data-code="SizeSection"]').should('have.class', 'active-nav visited')
-
-    cy.contains('Get started').click() // Get Started button
-    cy.get('[aria-label="Select size"]').click() // Select Size "dropdown"
-
-    cy.contains('48').click() //  Actual size button
-
-    cy.wait(2000)
-    cy
-      .get('[class="main-btn"]')
-      .find('[aria-label="Select size"]')
-      .click({ force: true }) //  Select Size button
-
-    cy.wait(2000)
-
-    cy
-      .get('[aria-label="Save & Continue"]')
-      .click({ force: true }) //  Save & Continue button
-
-    cy.contains('Apply').click()
+    coatConfiguratorPage.validateSection('SizeSection')
+    coatConfiguratorPage.selectSize('48')
 
     // step 4 - Summary
-    cy.get('[data-code="SummarySection"]').should('have.class', 'active-nav visited')
+    coatConfiguratorPage.validateSection('SummarySection')
 
     // validate selected Fabric
     cy.get('[data-code="fabric"]').find('[class="name"]').should('have.text', 'Blue Herringbone Wool Alpaca Polyamide')

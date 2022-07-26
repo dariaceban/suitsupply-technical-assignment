@@ -1,4 +1,5 @@
 export class CustomMadePage {
+
     navigateToCoatConfiguratorPage() {
         cy.contains('Start designing').click()
         cy.get('[data-promo-id="page-journal-custom_made-fastest_tailors-cm_coat"]').click()

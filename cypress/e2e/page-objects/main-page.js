@@ -18,4 +18,8 @@ export class MainPage {
             .click()
         cy.url().should('include', 'custom-made.html')
     }
+
+    clickButtonByName(buttonName) {
+        cy.contains(`${buttonName}`).click()
+    }
 }

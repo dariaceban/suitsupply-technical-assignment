@@ -5,7 +5,6 @@ module.exports = defineConfig({
     baseUrl: 'https://suitsupply.com/en-nl'
   },
   includeShadowDom: true,
-  requestTimeout: 30000,
-  pageLoadTimeout: 30000,
-  responseTimeout: 30000
+  defaultCommandTimeout: 30000,
+  pageLoadTimeout: 30000
 });
