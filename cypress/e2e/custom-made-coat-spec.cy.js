@@ -31,7 +31,6 @@ describe('Custom Made Configurator', () => {
     cy.contains('Filter').click()
     cy.get('[data-node-name="Fall/Winter"]').check({ force: true })
     cy.get('[data-node-name="Wool Alpaca Polyamide"]').check({ force: true })
-    // cy.wait(1000)
     cy.contains('Blue Herringbone Wool Alpaca Polyamide').click()
     cy.contains('Next').click()
 
@@ -48,25 +47,31 @@ describe('Custom Made Configurator', () => {
 
     cy.get('[aria-label="Buttons"]').click()
     cy.contains('Brown & Light Brown (BOHA3-F)').click()
+
     cy.contains('Apply').click()
-
-    // add initials
-
-    // add validations for each item's value before clicking 'Next'
 
     cy.contains('Next').click()
 
     // step 3 - Size
     cy.get('[data-code="SizeSection"]').should('have.class', 'active-nav visited')
-    cy.contains('Get started').click()
-    cy.get('[aria-label="Select size"]').click()
-    // cy.wait(2000)
-    cy.contains('48').click()
-    // cy.wait(2000)
-    cy.get('[class="main-btn"]').find('[aria-label="Select size"]').click({ force: true })
-    // cy.wait(2000)
-    cy.contains('Save & Continue').click({ force: true })
-    cy.get('[class="profile-name"]').type('Test Automation Size Profile')
+
+    cy.contains('Get started').click() // Get Started button
+    cy.get('[aria-label="Select size"]').click() // Select Size "dropdown"
+
+    cy.contains('48').click() //  Actual size button
+
+    cy.wait(2000)
+    cy
+      .get('[class="main-btn"]')
+      .find('[aria-label="Select size"]')
+      .click({ force: true }) //  Select Size button
+
+    cy.wait(2000)
+
+    cy
+      .get('[aria-label="Save & Continue"]')
+      .click({ force: true }) //  Save & Continue button
+
     cy.contains('Apply').click()
 
     // step 4 - Summary
@@ -90,9 +95,6 @@ describe('Custom Made Configurator', () => {
     cy.get('[data-button-type="aux-end"]').click()
 
     // step 5 - Cart
-    // cy.wait(5000)
     cy.url().should('include', 'cart')
-    // cy.get('[class="cart__title-price js-cart-header-total"]').should('have.text', '€699')
-    // cy.get('[class="product-card__title-link"]').should('include', 'Custom Made Coat')
   })
 })
