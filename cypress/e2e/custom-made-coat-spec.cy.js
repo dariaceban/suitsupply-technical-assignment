@@ -4,6 +4,7 @@ import { MainPage } from './page-objects/main-page.js'
 import { CustomMadePage } from './page-objects/custom-made-page.js'
 import { CoatConfiguratorPage } from './page-objects/coat-configurator-page.js'
 import { SummaryPage } from './page-objects/summary-page.js'
+import { CartPage } from './page-objects/cart-page.js'
 
 describe('Custom Made Configurator', () => {
 
@@ -11,6 +12,7 @@ describe('Custom Made Configurator', () => {
   const customMadePage = new CustomMadePage()
   const coatConfiguratorPage = new CoatConfiguratorPage()
   const summaryPage = new SummaryPage()
+  const cartPage = new CartPage()
 
   beforeEach(() => {
     mainPage.navigateToMainPage()
@@ -20,6 +22,7 @@ describe('Custom Made Configurator', () => {
   it('As an anonymous user I can add Custom Made Coat to the shopping cart', () => {
     // navigate to CM page
     mainPage.navigateToCustomMadePage()
+    mainPage.validateUrl('custom-made.html')
 
     // navigate to Coat CM Configurator page
     customMadePage.navigateToCoatConfiguratorPage()
@@ -58,9 +61,9 @@ describe('Custom Made Configurator', () => {
     summaryPage.validateSelectedSize('48')
 
     // add to cart
-    cy.get('[data-button-type="aux-end"]').click()
+    cartPage.addToCart()
 
     // step 5 - Cart
-    cy.url().should('include', 'cart')
+    mainPage.validateUrl('cart')
   })
 })

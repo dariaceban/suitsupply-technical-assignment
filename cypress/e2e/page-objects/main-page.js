@@ -16,10 +16,14 @@ export class MainPage {
             .scrollIntoView()
             .should('be.visible')
             .click()
-        cy.url().should('include', 'custom-made.html')
     }
 
     clickButtonByName(buttonName) {
         cy.contains(`${buttonName}`).click()
+    }
+
+    validateUrl(path) {
+        cy.url().should('include', `${path}`)
+
     }
 }
