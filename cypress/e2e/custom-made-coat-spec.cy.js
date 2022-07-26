@@ -2,7 +2,8 @@
 
 describe('Custom Made Configurator', () => {
   beforeEach(() => {
-    cy.visit('https://suitsupply.com/en-nl/')
+    cy.viewport('macbook-16')
+    cy.visit('/')
     cy.contains('I Agree').click()
     cy.get('[class="btn-close cookies__close-btn js-decline-country-change"]').click()
   })
@@ -23,13 +24,14 @@ describe('Custom Made Configurator', () => {
     cy.url().should('include', 'product=Coat')
     cy
       .get('[class="close border-solid body-small size-small shape-round icon-only background-light hydrated"]')
-      .click()
+      .click() // improve this locator
 
     // step 1 - Fabric
     cy.get('[data-code="FabricSection"]').should('have.class', 'active-nav visited')
     cy.contains('Filter').click()
     cy.get('[data-node-name="Fall/Winter"]').check({ force: true })
     cy.get('[data-node-name="Wool Alpaca Polyamide"]').check({ force: true })
+    // cy.wait(1000)
     cy.contains('Blue Herringbone Wool Alpaca Polyamide').click()
     cy.contains('Next').click()
 
@@ -48,12 +50,49 @@ describe('Custom Made Configurator', () => {
     cy.contains('Brown & Light Brown (BOHA3-F)').click()
     cy.contains('Apply').click()
 
+    // add initials
+
     // add validations for each item's value before clicking 'Next'
 
     cy.contains('Next').click()
 
     // step 3 - Size
+    cy.get('[data-code="SizeSection"]').should('have.class', 'active-nav visited')
+    cy.contains('Get started').click()
+    cy.get('[aria-label="Select size"]').click()
+    // cy.wait(2000)
+    cy.contains('48').click()
+    // cy.wait(2000)
+    cy.get('[class="main-btn"]').find('[aria-label="Select size"]').click({ force: true })
+    // cy.wait(2000)
+    cy.contains('Save & Continue').click({ force: true })
+    cy.get('[class="profile-name"]').type('Test Automation Size Profile')
+    cy.contains('Apply').click()
 
     // step 4 - Summary
+    cy.get('[data-code="SummarySection"]').should('have.class', 'active-nav visited')
+
+    // validate selected Fabric
+    cy.get('[data-code="fabric"]').find('[class="name"]').should('have.text', 'Blue Herringbone Wool Alpaca Polyamide')
+
+    // validate selected Style
+    cy.get('[data-code="fit"]').find('[class="main-detail"]').should('have.text', 'Bleecker')
+    cy.get('[data-code="sidePocket"]').find('[class="main-detail"]').should('have.text', 'Flap')
+    cy.get('[data-code="waistline"]').find('[class="main-detail"]').should('have.text', 'No Belt')
+    cy.get('[data-code="length"]').find('[class="main-detail"]').should('have.text', 'Thigh Length (Standard)')
+    cy.get('[data-code="lining"]').find('[class="main-detail"]').should('have.text', 'Light Grey (3220)')
+    cy.get('[data-code="buttons"]').find('[class="main-detail"]').should('have.text', 'Brown & Light Brown (BOHA3-F)')
+
+    // validate selected Size
+    cy.get('[data-type="sizePassport"]').find('[class="body-medium"]').should('have.text', '48')
+
+    // add to cart
+    cy.get('[data-button-type="aux-end"]').click()
+
+    // step 5 - Cart
+    // cy.wait(5000)
+    cy.url().should('include', 'cart')
+    // cy.get('[class="cart__title-price js-cart-header-total"]').should('have.text', '€699')
+    // cy.get('[class="product-card__title-link"]').should('include', 'Custom Made Coat')
   })
 })
