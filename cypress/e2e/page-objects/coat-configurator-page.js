@@ -13,7 +13,6 @@ export class CoatConfiguratorPage {
         cy.contains('Filter').click()
         cy.get(`[data-node-name="${season}"]`).check({ force: true })
         cy.get(`[data-node-name="${material}"]`).check({ force: true })
-        cy.wait(2000)
         cy.contains(`${fabric}`).click()
     }
 

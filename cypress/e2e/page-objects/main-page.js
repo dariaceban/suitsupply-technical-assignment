@@ -1,7 +1,7 @@
 export class MainPage {
     navigateToMainPage() {
         cy.viewport('macbook-16')
-        cy.visit('/')
+        cy.visit('')
     }
 
     acceptCookies() {
@@ -24,6 +24,5 @@ export class MainPage {
 
     validateUrl(path) {
         cy.url().should('include', `${path}`)
-
     }
 }
