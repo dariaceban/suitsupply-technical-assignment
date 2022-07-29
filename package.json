@@ -1,0 +1,25 @@
+{
+  "name": "suitsupply-technical-assignment",
+  "version": "1.0.0",
+  "description": "This is a technical assignment implementation for an interview process at Suitsupply for QA Engineer role. The project includes automation of one happy flow for Custom Made Coats configurator. Automation is implemented using Cypress framework. ### Pre-requisites * Node.js installed * Chrome browser installed",
+  "main": "cypress.config.js",
+  "dependencies": {},
+  "devDependencies": {
+    "cypress": "^10.3.1"
+  },
+  "scripts": {
+    "test": "cypress run",
+    "test:chrome": "cypress run --browser chrome"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dariaceban/suitsupply-technical-assignment.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dariaceban/suitsupply-technical-assignment/issues"
+  },
+  "homepage": "https://github.com/dariaceban/suitsupply-technical-assignment#readme"
+}

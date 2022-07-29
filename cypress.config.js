@@ -6,5 +6,6 @@ module.exports = defineConfig({
   },
   includeShadowDom: true,
   defaultCommandTimeout: 30000,
-  pageLoadTimeout: 30000
+  pageLoadTimeout: 30000,
+  retries: 2
 });
